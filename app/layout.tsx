@@ -15,7 +15,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 		<html lang='en'>
 			<ClientProvider>
 				<body className={inter.className}>
-					<nav className='flex h-32 w-full items-center justify-center bg-violet-600 text-4xl font-extrabold'>
+					<nav className='flex h-32 w-full items-center justify-center bg-violet-800 text-4xl font-extrabold'>
 						<h1>Redux Essentials Example</h1>
 					</nav>
 					{children}

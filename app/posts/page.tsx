@@ -1,5 +1,11 @@
+import { AddPostForm } from './AddPostForm'
 import { PostList } from './PostList'
 
 export default function PostPage() {
-	return <PostList />
+	return (
+		<main className='w-full p-8'>
+			<AddPostForm />
+			<PostList />
+		</main>
+	)
 }

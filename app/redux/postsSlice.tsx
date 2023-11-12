@@ -1,6 +1,12 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
-const initialState = [
+interface Post {
+	id: string
+	title: string
+	content: string
+}
+
+const initialState: Post[] = [
 	{ id: '1', title: 'First Post', content: 'Hello!' },
 	{ id: '2', title: 'Second Post', content: 'More text' },
 ]
@@ -8,7 +14,12 @@ const initialState = [
 const postsSlice = createSlice({
 	name: 'posts',
 	initialState,
-	reducers: {},
+	reducers: {
+		addPost: (state, action: PayloadAction<Post>) => {
+			state.push(action.payload)
+		},
+	},
 })
 
+export const { addPost } = postsSlice.actions
 export const postsReducer = postsSlice.reducer

@@ -13,7 +13,7 @@ export function PostList() {
 	))
 
 	return (
-		<section className='w-full p-4'>
+		<section>
 			<h2 className='mb-3 text-2xl font-medium'>Posts</h2>
 			{renderedPosts}
 		</section>
