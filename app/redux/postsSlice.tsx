@@ -1,4 +1,4 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit'
+import { PayloadAction, createSlice, nanoid } from '@reduxjs/toolkit'
 
 interface Post {
 	id: string
@@ -15,8 +15,13 @@ const postsSlice = createSlice({
 	name: 'posts',
 	initialState,
 	reducers: {
-		addPost: (state, action: PayloadAction<Post>) => {
-			state.push(action.payload)
+		addPost: {
+			reducer: (state, action: PayloadAction<Post>) => {
+				state.push(action.payload)
+			},
+			prepare: (title, content) => {
+				return { payload: { id: nanoid(), title, content } }
+			},
 		},
 		updatePost: (state, action: PayloadAction<Post>) => {
 			const { id, title, content } = action.payload

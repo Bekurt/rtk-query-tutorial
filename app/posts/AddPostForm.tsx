@@ -3,7 +3,6 @@
 import { useState } from 'react'
 import { useTypeDispatch } from '../hooks/typedHooks'
 import { addPost } from '../redux/postsSlice'
-import { nanoid } from '@reduxjs/toolkit'
 
 export function AddPostForm() {
 	const [title, setTitle] = useState('')
@@ -12,7 +11,7 @@ export function AddPostForm() {
 
 	const onSaveClicked = () => {
 		if (title && content) {
-			dispatch(addPost({ id: nanoid(), title, content }))
+			dispatch(addPost(title, content))
 			setTitle('')
 			setContent('')
 		}
