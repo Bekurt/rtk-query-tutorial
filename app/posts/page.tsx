@@ -1,5 +1,5 @@
-import { AddPostForm } from './AddPostForm'
-import { PostList } from './PostList'
+import { AddPostForm } from './components/AddPostForm'
+import { PostList } from './components/PostList'
 
 export default function PostPage() {
 	return (

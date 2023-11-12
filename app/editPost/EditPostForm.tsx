@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { useTypeDispatch, useTypeSelector } from '../hooks/typedHooks'
-import { updatePost } from '../redux/postsSlice'
+import { updatePost } from '../redux/slices/postsSlice'
 import { useRouter } from 'next/navigation'
 
 export function EditPostForm({ postId }: { postId: string }) {
@@ -15,8 +15,8 @@ export function EditPostForm({ postId }: { postId: string }) {
 	const router = useRouter()
 
 	const onSaveClicked = () => {
-		if (title && content) {
-			dispatch(updatePost({ id: postId, title, content }))
+		if (title && content && post?.user) {
+			dispatch(updatePost({ id: postId, title, content, user: post.user }))
 			router.push(`/posts/${postId}`)
 		}
 	}
@@ -29,7 +29,7 @@ export function EditPostForm({ postId }: { postId: string }) {
 					Post Title:
 				</label>
 				<input
-					className='mb-2 w-80 rounded-md border bg-transparent px-2 py-1'
+					className='mb-2 w-80 rounded-md border bg-transparent px-2 py-1 focus:shadow-md focus:shadow-purple-600 focus:outline-none'
 					type='text'
 					id='postTitle'
 					name='postTitle'
@@ -42,7 +42,7 @@ export function EditPostForm({ postId }: { postId: string }) {
 					Content:
 				</label>
 				<textarea
-					className='mb-4 min-h-[80px] w-4/5 rounded-lg border bg-transparent p-2'
+					className='mb-4 min-h-[80px] w-4/5 rounded-lg border bg-transparent p-2 focus:shadow-md focus:shadow-purple-600 focus:outline-none'
 					id='postContent'
 					name='postContent'
 					value={content}
