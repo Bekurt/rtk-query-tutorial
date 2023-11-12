@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import { ClientProvider } from './redux/provider'
+import Link from 'next/link'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -15,8 +16,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 		<html lang='en'>
 			<ClientProvider>
 				<body className={inter.className}>
-					<nav className='flex h-32 w-full items-center justify-center bg-violet-800 text-4xl font-extrabold'>
-						<h1>Redux Essentials Example</h1>
+					<nav className='h-32 w-full bg-violet-800'>
+						<h1 className='h-3/5 w-full p-4 text-4xl font-extrabold'>Redux Essentials Example</h1>
+						<div className='flex h-2/5 w-full items-center justify-end bg-black/20 pr-4 text-2xl'>
+							<Link href='/posts'>Posts</Link>
+						</div>
 					</nav>
 					{children}
 				</body>
