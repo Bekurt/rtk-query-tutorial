@@ -16,7 +16,7 @@ export function EditPostForm({ postId }: { postId: string }) {
 
 	const onSaveClicked = () => {
 		if (title && content && post?.user) {
-			dispatch(updatePost({ id: postId, title, content, user: post.user }))
+			dispatch(updatePost({ id: postId, title, content }))
 			router.push(`/posts/${postId}`)
 		}
 	}
