@@ -13,9 +13,14 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
 	return (
 		<html lang='en'>
-			{/* <ClientProvider> */}
-			<body className={inter.className}>{children}</body>
-			{/* </ClientProvider> */}
+			<ClientProvider>
+				<body className={inter.className}>
+					<nav className='flex h-32 w-full items-center justify-center bg-violet-600 text-4xl font-extrabold'>
+						<h1>Redux Essentials Example</h1>
+					</nav>
+					{children}
+				</body>
+			</ClientProvider>
 		</html>
 	)
 }
