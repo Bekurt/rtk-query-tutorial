@@ -2,11 +2,11 @@
 
 import { useState } from 'react'
 import { useTypeDispatch, useTypeSelector } from '../hooks/typedHooks'
-import { updatePost } from '../redux/slices/postsSlice'
+import { selectPostById, updatePost } from '../redux/slices/postsSlice'
 import { useRouter } from 'next/navigation'
 
 export function EditPostForm({ postId }: { postId: string }) {
-	const post = useTypeSelector((state) => state.posts.find((post) => post.id === postId))
+	const post = useTypeSelector((state) => selectPostById(state, postId))
 
 	const [title, setTitle] = useState(post?.title)
 	const [content, setContent] = useState(post?.content)

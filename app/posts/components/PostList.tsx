@@ -1,16 +1,15 @@
 'use client'
 
 import Link from 'next/link'
-import { useTypeSelector } from '../../hooks/typedHooks'
+import { useTypeDispatch, useTypeSelector } from '../../hooks/typedHooks'
 import { PostAuthor } from './PostAuthor'
 import { TimeAgo } from './TimeAgo'
+import { fetchPosts, post, selectAllPosts } from '@/app/redux/slices/postsSlice'
+import { useEffect } from 'react'
 
-export function PostList() {
-	const posts = useTypeSelector((state) => state.posts)
-	const orderedPosts = posts.slice().sort((a, b) => b.date.localeCompare(a.date))
-
-	const renderedPosts = orderedPosts.map((post) => (
-		<article key={post.id} className='relative mb-3 h-36 w-full rounded-md border'>
+function PostExcerpt({ post }: { post: post }) {
+	return (
+		<article id='post-excerpt' className='relative mb-3 h-36 w-full rounded-md border'>
 			<h3 className='rounded-t-md bg-white/10 p-2 text-xl font-medium'>
 				{post.title}
 				<PostAuthor userId={post.user} />
@@ -21,12 +20,43 @@ export function PostList() {
 				View Post
 			</Link>
 		</article>
-	))
+	)
+}
+
+export function PostList() {
+	const dispatch = useTypeDispatch()
+	const posts = useTypeSelector(selectAllPosts)
+
+	const error = useTypeSelector((state) => state.posts.error)
+
+	const postStatus = useTypeSelector((state) => state.posts.status)
+	useEffect(() => {
+		if (postStatus === 'idle') {
+			dispatch(fetchPosts())
+		}
+	}, [postStatus, dispatch])
+
+	let content
+	switch (postStatus) {
+		case 'loading':
+			content = <div>Loading...</div>
+			break
+		case 'success':
+			content = posts.map((post, idx) => {
+				return <PostExcerpt key={idx} post={post} />
+			})
+			break
+		case 'fail':
+			content = <div>{error}</div>
+			break
+		default:
+			break
+	}
 
 	return (
 		<section>
 			<h2 className='mb-3 text-2xl font-medium'>Posts</h2>
-			{renderedPosts}
+			{content}
 		</section>
 	)
 }

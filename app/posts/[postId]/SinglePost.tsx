@@ -4,9 +4,10 @@ import { useTypeSelector } from '@/app/hooks/typedHooks'
 import Link from 'next/link'
 import { PostAuthor } from '../components/PostAuthor'
 import { TimeAgo } from '../components/TimeAgo'
+import { selectPostById } from '@/app/redux/slices/postsSlice'
 
 export function SinglePost({ postId }: { postId: string }) {
-	const post = useTypeSelector((state) => state.posts.find((post) => post.id === postId))
+	const post = useTypeSelector((state) => selectPostById(state, postId))
 
 	return post ? (
 		<article className='relative mb-3 h-72 w-full rounded-md border'>

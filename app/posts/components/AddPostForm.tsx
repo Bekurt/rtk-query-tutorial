@@ -1,13 +1,14 @@
 'use client'
 
 import { useTypeDispatch, useTypeSelector } from '@/app/hooks/typedHooks'
-import { addPost } from '@/app/redux/slices/postsSlice'
+import { addNewPost, addPost } from '@/app/redux/slices/postsSlice'
 import { useState } from 'react'
 
 export function AddPostForm() {
 	const [title, setTitle] = useState('')
 	const [content, setContent] = useState('')
 	const [userId, setUserId] = useState('')
+	const [addRequestStatus, setAddRequestSTatus] = useState('idle')
 
 	const dispatch = useTypeDispatch()
 
@@ -20,11 +21,19 @@ export function AddPostForm() {
 		)
 	})
 
-	const canSave = Boolean(title) && Boolean(content) && Boolean(userId)
-	const onSaveClicked = () => {
-		dispatch(addPost(title, content, userId))
-		setTitle('')
-		setContent('')
+	const canSave = [title, content, userId].every(Boolean) && addRequestStatus === 'idle'
+	const onSaveClicked = async () => {
+		try {
+			setAddRequestSTatus('pending')
+			await dispatch(addNewPost({ title, content, user: userId })).unwrap()
+			setTitle('')
+			setContent('')
+			setUserId('')
+		} catch (err) {
+			console.error('Failed to save the post: ', err)
+		} finally {
+			setAddRequestSTatus('idle')
+		}
 	}
 
 	return (
