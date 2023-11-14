@@ -19,7 +19,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 					<nav className='h-32 w-full bg-violet-800'>
 						<h1 className='h-3/5 w-full p-4 text-4xl font-extrabold'>Redux Essentials Example</h1>
 						<div className='flex h-2/5 w-full items-center justify-end bg-black/20 pr-4 text-2xl'>
-							<Link href='/posts'>Posts</Link>
+							<span className='mr-5'>
+								<Link href='/posts'>Posts</Link>
+							</span>
+							<span className='mr-5'>
+								<Link href='/users'>Users</Link>
+							</span>
 						</div>
 					</nav>
 					{children}

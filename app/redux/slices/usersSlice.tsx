@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { RootState } from '../store'
 
 interface user {
 	id: string
@@ -18,3 +19,10 @@ const userSlice = createSlice({
 })
 
 export const userReducer = userSlice.reducer
+
+export const selectAllUsers = (state: RootState) => {
+	return state.users
+}
+export const selectUserById = (state: RootState, userId: string) => {
+	return state.users.find((user) => user.id === userId)
+}

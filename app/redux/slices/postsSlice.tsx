@@ -74,7 +74,7 @@ const postsSlice = createSlice({
 			})
 			.addCase(fetchPosts.fulfilled, (state, action) => {
 				state.status = 'success'
-				state.posts = state.posts.concat(action.payload)
+				state.posts = action.payload
 			})
 			.addCase(fetchPosts.rejected, (state, action) => {
 				state.status = 'fail'
